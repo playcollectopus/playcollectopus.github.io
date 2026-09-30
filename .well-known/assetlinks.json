@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.collectopus",
+      "sha256_cert_fingerprints": [
+        "CC:6A:B2:A5:1D:55:B5:6E:D8:60:C6:CE:0B:35:53:F1:09:75:2E:5F:45:9B:ED:8D:32:2F:33:8B:39:09:1A:F9"
+      ]
+    }
+  }
+]
