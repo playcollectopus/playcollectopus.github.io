@@ -32,23 +32,25 @@
   <header><img src="/icon-192.png" alt=""><a href="/">Collectopus</a></header>
   <h1>Collectopus Privacy Policy</h1>
 <p><strong>Effective date:</strong> 1 October 2026<br>
+<strong>Last updated:</strong> 1 October 2026<br>
 <strong>Controller:</strong> Kirillov &amp; Co (Maksim Kirillov, individual developer, Ukraine), contact: <a href="mailto:collectoctopus@gmail.com">collectoctopus@gmail.com</a></p>
 <h2>1. What Collectopus does</h2>
 <p>Collectopus lets you photograph real-world objects and turn them into collectible cards.</p>
 <h2>2. Data we collect</h2>
 <ul>
   <li><strong>Photos you take in the app.</strong> Before anything leaves your phone, the app looks for human faces on your device. If a person is the main subject of the photo, nothing is uploaded. Faces that the app detects elsewhere in the photo are pixelated and blurred on your device before upload. A reduced copy of the photo (max 512 px, location metadata removed) is sent to our server and to Google's Gemini API only to recognize the object; we do not store it. We do not store the original photo either. We store only the card picture: the cut-out of the object or, if it can't be cut out, a square crop of the photo with detected faces blurred.</li>
-  <li><strong>Account data:</strong> an anonymous account ID; if you choose to sign in with Google — your email and Google account ID; your nickname and avatar card.</li>
+  <li><strong>Account data:</strong> an anonymous account ID; your nickname and avatar card (one of your own cards). If you choose to sign in with Google, our sign-in service (Supabase Auth) keeps the details Google provides for that account — your name, email address, Google account ID and a link to your Google profile picture — only to sign you in. We do not copy them into the game, and other players never see them: in the game you appear only with your own nickname and avatar card.</li>
   <li><strong>Approximate location (optional):</strong> if you allow it, the app asks only for approximate location, and only when you open City sets or turn it on in Settings. Turning it off in Settings erases your city from our server. Your phone sends a rough position (rounded to about 1 km) to our server, which looks up the city and country in its own offline list of cities. We store only the city and country; the coordinates are not stored, not logged and not shared with any third party.</li>
   <li><strong>Gameplay data:</strong> your cards, collections, points, streaks, friends, event progress.</li>
   <li><strong>Purchases:</strong> subscription and purchase status via Google Play and RevenueCat. We do not receive your payment card details.</li>
   <li><strong>Diagnostics and analytics:</strong> crash reports (Firebase Crashlytics) are always sent, because we need them to keep the app working. Anonymous usage events (PostHog) are optional: in the EU/UK (and when your phone looks European) the app asks first and sends nothing until you agree; everyone can turn them off in Profile → Settings → Usage statistics.</li>
+  <li><strong>On-device recognition (Google ML Kit):</strong> face detection and cutting out the object run on your phone. ML Kit sends Google anonymous diagnostics about how these tools work — device and app information, performance, error codes and a per-installation identifier — never your photos.</li>
   <li><strong>Push token</strong> if you allow notifications. Turning notifications off in Settings removes it from our server.</li>
 </ul>
 <h2>3. How we use data</h2>
 <p>To provide the game, recognize photos, run leaderboards and events, process subscriptions, send notifications you enabled, fix bugs and improve the app. We do not sell personal data and do not use your photos to train AI models. Google processes the reduced photo under the Gemini API terms for paid services, which do not allow Google to use it to improve its products; Google may keep it for a limited time only to detect abuse, as its terms require.</p>
 <h2>4. Processors</h2>
-<p>Supabase (hosting, database, storage — servers in Frankfurt, EU), Google (Gemini API, Firebase, Google Play), PostHog (analytics, EU region), RevenueCat (subscriptions), GitHub (hosting of our website and invite links). They process data on our behalf under their terms. Some of them may process data outside your country, including in the United States; where required, such transfers rely on the providers' standard contractual clauses or equivalent safeguards.</p>
+<p>Supabase (hosting, database, storage — servers in Frankfurt, EU), Google (Gemini API, Firebase, ML Kit diagnostics, Google Play), PostHog (analytics, EU region), RevenueCat (subscriptions), GitHub (hosting of our website and invite links). They process data on our behalf under their terms. Some of them may process data outside your country, including in the United States; where required, such transfers rely on the providers' standard contractual clauses or equivalent safeguards.</p>
 <h2>5. Who can see your data</h2>
 <p>Friends you add can see your nickname, avatar, cards and points. You can block a player or report a nickname; a reported nickname is hidden until we review it, and reports are kept only until they are reviewed. City leaderboards (if enabled) show your nickname and weekly points to other players in your city. Nobody sees your location.</p>
 <h2>6. Retention</h2>
