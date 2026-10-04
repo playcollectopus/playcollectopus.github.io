@@ -1,11 +1,15 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "app.collectopus",
       "sha256_cert_fingerprints": [
-        "CC:6A:B2:A5:1D:55:B5:6E:D8:60:C6:CE:0B:35:53:F1:09:75:2E:5F:45:9B:ED:8D:32:2F:33:8B:39:09:1A:F9"
+        "CC:6A:B2:A5:1D:55:B5:6E:D8:60:C6:CE:0B:35:53:F1:09:75:2E:5F:45:9B:ED:8D:32:2F:33:8B:39:09:1A:F9",
+        "AE:9A:18:FD:B5:7B:31:A2:2A:0F:F1:C4:F3:B5:FA:88:A8:FD:07:74:65:7D:B7:F1:49:F9:56:F4:0F:25:33:23",
+        "1A:1A:84:EE:99:9D:ED:0C:4B:B4:C2:2A:A0:00:CC:12:E5:74:EE:45:D1:8A:03:1A:D6:31:21:09:9A:64:69:B5"
       ]
     }
   }
