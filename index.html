@@ -3,26 +3,193 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Collectopus</title>
+<title>Collectopus — everything around you is collectible</title>
+<meta name="description" content="Point your camera at real things — dogs, cars, birds, food — and collect them as cards with a rarity. Join the waitlist for the launch on Google Play.">
+<meta name="theme-color" content="#0B0A12">
+<meta property="og:title" content="Collectopus">
+<meta property="og:description" content="Everything around you is collectible. Join the waitlist.">
+<meta property="og:image" content="https://playcollectopus.github.io/img/banner.jpg">
+<meta property="og:url" content="https://playcollectopus.github.io/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/icon-192.png">
 <style>
-  :root { --ink:#0B0A12; --soft:#C9C6D6; --text:#F4F2EE; --lime:#C8FF2E; }
-  body { margin:0; min-height:100vh; background:var(--ink); color:var(--text);
-         font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-         display:flex; align-items:center; justify-content:center; padding:24px 16px; text-align:center; }
-  main { max-width:420px; }
-  img { width:112px; height:112px; border-radius:28px; }
-  h1 { font-size:32px; margin:20px 0 8px; }
-  p { color:var(--soft); margin:0 0 12px; }
-  .soon { color:var(--lime); font-weight:700; }
+  @font-face { font-family:"Bricolage"; src:url(/fonts/BricolageGrotesque-ExtraBold.ttf) format("truetype"); font-weight:800; font-display:swap; }
+  @font-face { font-family:"DM Sans"; src:url(/fonts/DMSans-Regular.ttf) format("truetype"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"DM Sans"; src:url(/fonts/DMSans-Bold.ttf) format("truetype"); font-weight:700; font-display:swap; }
+  :root {
+    --ink:#0B0A12; --surface:#15141F; --raised:#1E1C2B; --line:rgba(255,255,255,.12);
+    --text:#F4F2EE; --soft:#C9C6D6; --muted:#A3A1B3; --lime:#C8FF2E; --danger:#FF5C6C;
+    --holo:linear-gradient(135deg,#7CF4FF,#8C9BFF,#C77DFF,#FF7AC6,#FFC27A);
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--ink); color:var(--text);
+         font:17px/1.55 "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; overflow-x:hidden; }
+  body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:radial-gradient(60vmax 50vmax at 10% -10%,rgba(80,90,170,.28),transparent 60%),
+               radial-gradient(50vmax 45vmax at 100% 110%,rgba(163,91,255,.22),transparent 60%); }
+  a { color:var(--text); }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 16px; }
+  header { display:flex; align-items:center; gap:12px; padding:20px 0 0; }
+  header img { width:40px; height:40px; border-radius:11px; }
+  header span { font:800 22px/1 "Bricolage",system-ui,sans-serif; letter-spacing:-.01em; }
+
+  .hero { display:grid; grid-template-columns:1fr; gap:8px; align-items:center; padding:20px 0 8px; }
+  h1 { font:800 clamp(40px,10.5vw,68px)/1.02 "Bricolage",system-ui,sans-serif; letter-spacing:-.02em; margin:0; }
+  h1 em { font-style:normal; background:var(--holo); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead { color:var(--soft); margin:16px 0 0; max-width:30em; }
+  .cards { width:100%; max-width:300px; height:auto; justify-self:center; margin:0 0 -24px;
+    -webkit-mask-image:radial-gradient(closest-side,#000 82%,transparent 100%);
+            mask-image:radial-gradient(closest-side,#000 82%,transparent 100%); }
+
+  .join { background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:20px; margin-top:8px; }
+  .join h2 { font:800 24px/1.15 "Bricolage",system-ui,sans-serif; margin:0 0 4px; }
+  .join p.sub { color:var(--muted); margin:0 0 16px; font-size:15px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  input[type=email] { flex:1 1 220px; min-width:0; height:54px; border-radius:16px; border:1px solid var(--line);
+    background:var(--ink); color:var(--text); font:inherit; padding:0 16px; outline:none; }
+  input[type=email]:focus { border-color:var(--lime); }
+  button { flex:0 0 auto; height:54px; padding:0 24px; border:0; border-radius:16px; background:var(--lime); color:var(--ink);
+    font:700 17px/1 "DM Sans",system-ui,sans-serif; cursor:pointer; width:100%; }
+  button:disabled { opacity:.6; cursor:default; }
+  @media (min-width:520px) { button { width:auto; } }
+  .consent { display:flex; gap:10px; align-items:flex-start; margin-top:14px; color:var(--soft); font-size:14px; line-height:1.45; cursor:pointer; }
+  .consent input { width:20px; height:20px; margin:1px 0 0; accent-color:var(--lime); flex:0 0 auto; }
+  .trap { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .msg { min-height:1.4em; margin:12px 0 0; font-size:15px; color:var(--danger); }
+  .done { display:none; text-align:center; padding:12px 0 4px; }
+  .done strong { display:block; font:800 30px/1.1 "Bricolage",system-ui,sans-serif; color:var(--lime); margin-bottom:6px; }
+  .done p { color:var(--soft); margin:0; }
+  .joined form { display:none; } .joined .done { display:block; }
+
+  section.how { padding:56px 0 8px; }
+  h3.kicker { font:700 13px/1 "DM Sans",system-ui,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 18px; }
+  .steps { display:grid; gap:12px; grid-template-columns:1fr; list-style:none; margin:0; padding:0; }
+  .steps li { display:flex; gap:16px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:14px 16px; }
+  .steps img { width:72px; height:72px; flex:0 0 auto; }
+  .steps b { display:block; font:800 20px/1.2 "Bricolage",system-ui,sans-serif; margin-bottom:2px; }
+  .steps span { color:var(--soft); font-size:15px; }
+
+  section.shots { padding:48px 0 8px; }
+  .shots .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .shots figure { margin:0; }
+  .shots img { width:100%; height:auto; display:block; border-radius:18px; border:1px solid var(--line); }
+  
+  .again { text-align:center; padding:48px 0 8px; }
+  .again a { display:inline-block; background:var(--lime); color:var(--ink); font-weight:700; text-decoration:none; padding:16px 28px; border-radius:16px; }
+  .stickers { display:flex; justify-content:center; gap:4px; margin-bottom:18px; }
+  .stickers img { width:56px; height:56px; }
+
+  footer { color:var(--muted); font-size:14px; padding:48px 0 40px; text-align:center; }
+  footer nav { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:10px; }
+  footer a { color:var(--soft); }
+
+  @media (min-width:860px) {
+    .hero { grid-template-columns:1.05fr .95fr; gap:32px; padding-top:48px; }
+    .cards { grid-column:2; grid-row:1 / span 2; margin:0; max-width:470px; }
+    .join { margin-top:28px; }
+    .steps { grid-template-columns:repeat(3,1fr); }
+    .steps li { flex-direction:column; align-items:flex-start; padding:20px; }
+    .steps img { width:88px; height:88px; }
+    .shots .grid { max-width:640px; margin:0 auto; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <img src="/icon-192.png" alt="">
-  <h1>Collectopus</h1>
-  <p>Point your camera at real things — dogs, cars, birds, food — and collect them as cards with a rarity.</p>
-  <p class="soon">Coming soon to Google Play.</p>
-</main>
+<div class="wrap">
+  <header><img src="/icon-192.png" alt=""><span>Collectopus</span></header>
+
+  <div class="hero">
+    <div>
+      <h1>Everything around you is <em>collectible</em>.</h1>
+      <p class="lead">Point your camera at real things — a dog, a car, a bird, your lunch — and catch them as cards with a rarity. Coming soon to Google Play.</p>
+    </div>
+    <img class="cards" src="/img/cards.jpg" width="470" height="500" alt="Three Collectopus cards: a Rare Blue Jay, a shiny Legendary Capybara and an Epic Classic Car">
+    <div class="join" id="join">
+      <h2>Join the waitlist</h2>
+      <p class="sub">Be the first to play. One email when we launch — nothing else.</p>
+      <form id="form" novalidate>
+        <div class="row">
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" required aria-label="Email">
+          <button type="submit" id="submit">Join the waitlist</button>
+        </div>
+        <div class="trap" aria-hidden="true"><label>Website <input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label class="consent"><input type="checkbox" id="consent" required>
+          <span>I agree to the <a href="/privacy/" target="_blank" rel="noopener">Privacy Policy</a> and want an email when Collectopus launches.</span></label>
+        <p class="msg" id="msg" role="alert"></p>
+      </form>
+      <div class="done" role="status">
+        <strong>You're on the list!</strong>
+        <p>We'll email you when Collectopus is ready to play.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="how">
+    <h3 class="kicker">How it works</h3>
+    <ol class="steps">
+      <li><img src="/img/corgi.png" alt=""><div><b>Point &amp; catch</b><span>Aim your camera at anything real around you and tap.</span></div></li>
+      <li><img src="/img/capybara.png" alt=""><div><b>Unbox the card</b><span>Watch it reveal its rarity — from Common to Legendary, and sometimes Shiny.</span></div></li>
+      <li><img src="/img/car.png" alt=""><div><b>Collect together</b><span>Fill collections and city sets, join weekly events, compete with friends.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="shots">
+    <h3 class="kicker">A peek inside</h3>
+    <div class="grid">
+      <figure><img src="/img/screen_04_events.jpg" width="540" height="960" loading="lazy" alt="Events screen: Cat Week, catch 5 cats"></figure>
+      <figure><img src="/img/screen_05_friends.jpg" width="540" height="960" loading="lazy" alt="Weekly leaderboard with friends"></figure>
+    </div>
+  </section>
+
+  <div class="again">
+    <div class="stickers"><img src="/img/bird.png" alt=""><img src="/img/cat.png" alt=""><img src="/img/coffee.png" alt=""><img src="/img/flower.png" alt=""></div>
+    <a href="#join" id="again">Join the waitlist</a>
+  </div>
+
+  <footer>
+    <nav><a href="/how-it-works/">How it works</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:collectoctopus@gmail.com">Contact</a></nav>
+    © 2026 Collectopus
+  </footer>
+</div>
+<script>
+(function () {
+  var API = "https://rnnnqmttoxfxayihgrcf.supabase.co/functions/v1/waitlist-join";
+  var params = new URLSearchParams(location.search);
+  var src = (params.get("src") || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 32);
+  try { if (src) sessionStorage.setItem("src", src); else src = sessionStorage.getItem("src") || ""; } catch (e) {}
+  var join = document.getElementById("join"), form = document.getElementById("form");
+  var email = document.getElementById("email"), consent = document.getElementById("consent");
+  var btn = document.getElementById("submit"), msg = document.getElementById("msg");
+  var TEXT = {
+    invalid_email: "Please check your email address.",
+    consent_required: "Please tick the box to agree to the Privacy Policy.",
+    too_many: "Too many tries. Please try again in an hour.",
+    busy: "We're very busy right now. Please try again in a few minutes.",
+    error: "Something went wrong. Please try again."
+  };
+  function say(t) { msg.textContent = t; }
+  document.getElementById("again").addEventListener("click", function () { setTimeout(function () { email.focus(); }, 300); });
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(v)) { say(TEXT.invalid_email); email.focus(); return; }
+    if (!consent.checked) { say(TEXT.consent_required); return; }
+    say(""); btn.disabled = true; btn.textContent = "Joining…";
+    fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: v, lang: (navigator.language || "").slice(0, 2), source: src,
+                             consent: true, website: document.getElementById("website").value })
+    }).then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        if (d.status === "ok") { join.classList.add("joined"); return; }
+        say(TEXT[d.status] || TEXT.error);
+      })
+      .catch(function () { say("Couldn't connect. Check your internet and try again."); })
+      .then(function () { btn.disabled = false; btn.textContent = "Join the waitlist"; });
+  });
+})();
+</script>
 </body>
 </html>
